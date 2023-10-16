@@ -3,13 +3,6 @@
     <h3 align="center">Lesli Docker demo image.</h3>
 </p>
 
-<hr/>
-    <p align="center">
-        <a target="blank" href="https://rubygems.org/gems/lesli_admin">
-            <img src="https://badge.fury.io/rb/lesli_admin.svg" alt="Gem Version" height="18">
-        </a>
-    </p>
-<hr/>
 
 ### Quick start
 
