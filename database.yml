@@ -1,0 +1,15 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: db  # Use the service name of the PostgreSQL container in the same network
+  username: myapp
+  password: myapp
+  port: 5432
+
+
+development:
+  <<: *default
+  database: myapp
+  username: myapp
+  password: myapp
