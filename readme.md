@@ -1,7 +1,13 @@
 <p align="center">
-	<img width="90" alt="LesliCloud logo" src="./app/assets/images/lesli_admin/admin-logo.svg" />
-    <h3 align="center">Lesli Docker demo image.</h3>
+	<img width="180" alt="Lesli logo" src="https://cdn.lesli.tech/lesli/brand/app-logo.svg" />
+    <h3>Lesli Docker demo image.</h3>
 </p>
+
+<hr />
+<p align="center">
+    This image has a stable Lesli version for demo purposes
+</p>
+<hr />
 
 
 ### Quick start
@@ -47,9 +53,3 @@ along with this program. If not, see http://www.gnu.org/licenses/.
 
 <hr />
 <br />
-
-<p align="center">
-    <img width="200" alt="Lesli logo" src="https://cdn.lesli.tech/lesli/brand/app-logo.svg" />
-    <h4 align="center">Ruby on Rails SaaS Development Framework.</h4>
-</p>
-

@@ -46,12 +46,14 @@ rails new lesliapp --force -T \
     --skip-action-mailbox \
     --skip-action-cable \
     --asset-pipeline=sprockets \
-    --skip-hotwire --skip-jbuilder
+    --skip-hotwire --skip-jbuilder \
+    --skip-git
 
 
 # Copy the database credentials to the brand new app
-# TODO: Database credentials shold be sent by ENV variables
+# TODO: Database credentials should be sent by ENV variables
 cp config/database.yml ./lesliapp/config/database.yml
+cp config/routes.rb ./lesliapp/config/routes.rb
 
 
 # Move to the app directory to work with the Rails app
