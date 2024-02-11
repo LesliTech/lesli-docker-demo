@@ -14,7 +14,7 @@
 
 ```shell
 # Clone the repository
-git clone git@github.com:LesliTech/LesliDockerDemo.git
+git clone git@github.com:LesliTech/lesli-docker-demo.git
 ```
 
 ```shell

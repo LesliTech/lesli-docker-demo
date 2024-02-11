@@ -38,17 +38,14 @@ rm -rf lesliapp
 gem install rails -v 7.0.8
 
 
-# Create a Lesli compatible Rails app
-# Lesli does not require all the JS dev environment & tools 
-# provided by RoR
-rails new lesliapp --force -T --database=postgresql --skip-action-mailbox --skip-action-cable --asset-pipeline=sprockets --skip-hotwire --skip-jbuilder --skip-git
-# rails new lesliapp --force -T \
-#     --database=postgresql \ 
-#     --skip-action-mailbox \
-#     --skip-action-cable \
-#     --asset-pipeline=sprockets \
-#     --skip-hotwire --skip-jbuilder \
-#     --skip-git
+# Create a minimal Lesli compatible Rails app
+rails new lesliapp --force -T \
+    --database=postgresql \
+    --skip-action-mailbox \
+    --skip-action-cable \
+    --asset-pipeline=sprockets \
+    --skip-hotwire --skip-jbuilder \
+    --skip-git
 
 
 # Copy the database credentials to the brand new app
@@ -63,11 +60,12 @@ cd lesliapp
 
 # Install the latest Lesli gem
 bundle add lesli --skip-install
+#bundle add lesli_help --skip-install
 #bundle add lesli_bell --skip-install
-bundle add lesli_admin --skip-install
 bundle add lesli_audit --skip-install
+bundle add lesli_admin --skip-install
+bundle add lesli_guard --skip-install
 bundle add lesli_babel --skip-install
-bundle add lesli_vault --skip-install
 #bundle add lesli_driver --skip-install
 
 
@@ -81,6 +79,7 @@ rake lesli:db:reset
 
 # Show a welcome message
 rake lesli:dev:welcome
+
 
 # Start the Rails server
 rails server -b 0.0.0.0
