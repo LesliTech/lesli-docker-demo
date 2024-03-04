@@ -33,7 +33,7 @@ FROM ruby:latest
 
 
 # Set environment variables
-ENV RAILS_ROOT /app
+ENV RAILS_ROOT /lesliapp
 ENV RAILS_ENV development
 
 

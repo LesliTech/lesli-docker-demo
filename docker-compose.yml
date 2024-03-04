@@ -29,7 +29,7 @@
 
 version: "3"
 services:
-  lesli-db:
+  lesli_db:
     image: postgres:16
     environment:
       POSTGRES_DB: lesliapp
@@ -42,13 +42,13 @@ services:
       interval: 5s
       timeout: 10s
       retries: 5
-  lesli-web:
+  lesli_app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - .:/app
+      - .:/lesliapp
     depends_on:
-      - lesli-db
+      - lesli_db

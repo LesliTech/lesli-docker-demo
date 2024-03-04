@@ -2,7 +2,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  host: lesli-db  # Use the service name of the PostgreSQL container in the same network
+  host: lesli_db  # Use the service name of the PostgreSQL container in the same network
   port: 5432
 
 development:
