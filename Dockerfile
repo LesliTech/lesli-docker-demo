@@ -17,7 +17,7 @@
 # 
 # Lesli · Ruby on Rails SaaS Development Framework.
 # 
-# Made with ♥ by https://www.lesli.tech
+# Made with ♥ by LesliTech
 # Building a better future, one line of code at a time.
 # 
 # @contact  hello@lesli.tech
@@ -27,35 +27,53 @@
 # // · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
 # // · 
 
+# Dockerfile
 
-# Use an official Ruby runtime as a parent image
-FROM ruby:latest
+# Use the official Ruby image as a base image
+FROM ruby:3.1.2
 
+# Install dependencies
+RUN apt-get update -qq && apt-get install -y git sqlite3
 
-# Set environment variables
-ENV RAILS_ROOT /lesliapp
-ENV RAILS_ENV development
+# Set an environment variable to ensure that the Gemfile and Gemfile.lock are copied
+ENV BUNDLER_VERSION=2.3.7
+RUN gem install bundler -v "$BUNDLER_VERSION"
 
+# Create and set the app directory
+WORKDIR /app
 
-# Set working directory
-WORKDIR $RAILS_ROOT
+# Clone the Lesli Builder app repository
+RUN git clone https://github.com/LesliTech/LesliBuilder.git .
 
+# Change to the cloned directory
+WORKDIR /app/LesliBuilder
 
-# Install essential dependencies
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
+# Delete the Gemfile.lock file 
+RUN rm -f Gemfile.lock
 
+# Install the gems specified in the Gemfile
+RUN bundle install
 
-# Copy entry script into the container
-COPY entrypoint.sh /entrypoint.sh
+# update the gems to always use the latest version of Lesli
+RUN bundle update
 
+# Precompile assets 
+RUN bundle exec rake assets:precompile
 
-# Grant execution permissions
-RUN chmod +x /entrypoint.sh
+# Build the database for depoyment
+RUN rake lesli:db:deploy
 
+# Add some demo data
+RUN rake lesli:db:seed
 
-# Expose port 3000 so we can access to our app
+# Load translations
+RUN rake lesli:babel:load
+
+# Print a nice welcome message :)
+RUN rake lesli:dev:welcome
+
+# Expose port 3000 to the Docker host
 EXPOSE 3000
 
-
-# Set entry point to the custom script
-ENTRYPOINT ["/entrypoint.sh"]
+# Start the Rails server
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]

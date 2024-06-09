@@ -27,12 +27,14 @@ docker compose up --build
 * [documentation](https://www.lesli.dev/documentation/)
 
 
-### Get in touch
+### Get in touch with Lesli
 
 * [Website: https://www.lesli.tech](https://www.lesli.tech)
 * [Email: hello@lesli.tech](hello@lesli.tech)
 * [Twitter: @LesliTech](https://twitter.com/LesliTech)
 
+
+<br />
 
 ### License
 -------
@@ -52,4 +54,3 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see http://www.gnu.org/licenses/.
 
 <hr />
-<br />

@@ -27,22 +27,13 @@
 # // · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
 # // · 
 
-# docker-compose.yml
+# Dockerfile
 
-version: '3.8'
+# Use the official Nginx image as a base image
+FROM nginx:latest
 
-services:
-  rails:
-    build: .
-    volumes:
-      - .:/app/LesliBuilder
-    ports:
-      - "3000:3000"
+# Copy custom Nginx configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
 
-  nginx:
-    build:
-      context: ./nginx
-    ports:
-      - "80:80"
-    depends_on:
-      - rails
+# Expose port 80 to the Docker host
+EXPOSE 80
