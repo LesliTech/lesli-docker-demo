@@ -30,7 +30,7 @@
 # Dockerfile
 
 # Use the official Ruby image as a base image
-FROM ruby:3.1.2
+FROM ruby:3.2.5
 
 # Install dependencies
 RUN apt-get update -qq && apt-get install -y git sqlite3
@@ -43,16 +43,26 @@ RUN gem install bundler -v "$BUNDLER_VERSION"
 WORKDIR /app
 
 # Clone the Lesli Builder app repository
-RUN git clone https://github.com/LesliTech/LesliBuilder.git .
+RUN git clone https://github.com/LesliTech/LesliBuilder.git ./LesliBuilder
 
 # Change to the cloned directory
 WORKDIR /app/LesliBuilder
 
 # Delete the Gemfile.lock file 
 RUN rm -f Gemfile.lock
+RUN rm -f Gemfile.lesli
 
 # Install the gems specified in the Gemfile
 RUN bundle install
+
+# Copy the rest of the app (not sure if needed)
+#COPY . .
+
+RUN bundle add lesli  --version '>=5.0.16'
+
+RUN bundle add lesli_shield
+
+RUN bundle add lesli_admin
 
 # update the gems to always use the latest version of Lesli
 RUN bundle update
@@ -61,16 +71,13 @@ RUN bundle update
 RUN bundle exec rake assets:precompile
 
 # Build the database for depoyment
-RUN rake lesli:db:deploy
-
-# Add some demo data
-RUN rake lesli:db:seed
+RUN rake lesli:db:reset
 
 # Load translations
-RUN rake lesli:babel:load
+#RUN rake lesli:babel:load
 
 # Print a nice welcome message :)
-RUN rake lesli:dev:welcome
+RUN rake lesli:status
 
 # Expose port 3000 to the Docker host
 EXPOSE 3000

@@ -28,14 +28,13 @@
 # // · 
 
 # docker-compose.yml
-
 version: '3.8'
 
 services:
   rails:
     build: .
-    volumes:
-      - .:/app/LesliBuilder
+    # volumes:
+    #   - .:/app/LesliBuilder
     ports:
       - "3000:3000"
 
