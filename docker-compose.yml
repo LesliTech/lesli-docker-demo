@@ -32,9 +32,8 @@ version: '3.8'
 
 services:
   rails:
-    build: .
-    # volumes:
-    #   - .:/app/LesliBuilder
+    build: 
+      context: ./rails
     ports:
       - "3000:3000"
 
