@@ -64,6 +64,10 @@ RUN bundle add lesli_shield
 
 RUN bundle add lesli_admin
 
+RUN bundle add lesli_audit
+
+RUN bundle add lesli_dashboard
+
 # update the gems to always use the latest version of Lesli
 RUN bundle update
 
