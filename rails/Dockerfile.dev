@@ -45,18 +45,38 @@ WORKDIR /app
 # Clone the Lesli Builder app repository
 RUN git clone https://github.com/LesliTech/LesliBuilder.git ./LesliBuilder
 
+# Delete the Gemfile.lock file 
+RUN rm -f ./LesliBuilder/Gemfile.lock
+RUN rm -f ./LesliBuilder/Gemfile.lesli
+
+COPY Gemfile.dev ./LesliBuilder/Gemfile.lesli
+
+
 # Change to the cloned directory
 WORKDIR /app/LesliBuilder/engines
 
-RUN git clone https://github.com/LesliTech/Lesli.git ./LesliBuilder/engines/
+RUN git clone https://github.com/LesliTech/Lesli.git 
+RUN git clone https://github.com/LesliTech/LesliBell.git 
+RUN git clone https://github.com/LesliTech/LesliAdmin.git 
+RUN git clone https://github.com/LesliTech/LesliBabel.git 
+RUN git clone https://github.com/LesliTech/LesliAudit.git 
+RUN git clone https://github.com/LesliTech/LesliShield.git 
+#RUN git clone https://github.com/LesliTech/LesliMailer.git 
+RUN git clone https://github.com/LesliTech/LesliSupport.git 
+RUN git clone https://github.com/LesliTech/LesliCalendar.git 
+RUN git clone https://github.com/LesliTech/LesliDashboard.git 
+
+
+# Change to the cloned directory
+WORKDIR /app/LesliBuilder/gems
+
+RUN git clone https://github.com/LesliTech/LesliView.git 
+RUN git clone https://github.com/LesliTech/LesliDate.git 
+RUN git clone https://github.com/LesliTech/LesliSystem.git 
+RUN git clone https://github.com/LesliTech/LesliAssets.git 
+
 
 WORKDIR /app/LesliBuilder
-
-# Delete the Gemfile.lock file 
-RUN rm -f Gemfile.lock
-RUN rm -f Gemfile.lesli
-
-COPY rails/Gemfile.autoload Gemfile.lesli
 
 # Install the gems specified in the Gemfile
 RUN bundle install --without development test
