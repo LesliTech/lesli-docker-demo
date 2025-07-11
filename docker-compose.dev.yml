@@ -24,8 +24,8 @@
 # @website  https://www.lesli.tech
 # @license  GPLv3 http://www.gnu.org/licenses/gpl-3.0.en.html
 # 
-# // · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
-# // · 
+# · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
+# · 
 
 # docker-compose.yml
 version: '3.8'
@@ -34,13 +34,6 @@ services:
   rails:
     build: 
       context: ./rails
+      dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
-
-  nginx:
-    build:
-      context: ./nginx
-    ports:
-      - "80:80"
-    depends_on:
-      - rails

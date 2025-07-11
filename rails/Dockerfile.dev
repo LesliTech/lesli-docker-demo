@@ -44,6 +44,7 @@ WORKDIR /app
 
 # Clone the Lesli Builder app repository
 RUN git clone https://github.com/LesliTech/LesliBuilder.git ./LesliBuilder
+RUN git clone https://github.com/LesliTech/Lesli.git ./LesliBuilder/engines
 
 # Change to the cloned directory
 WORKDIR /app/LesliBuilder
@@ -52,14 +53,7 @@ WORKDIR /app/LesliBuilder
 RUN rm -f Gemfile.lock
 RUN rm -f Gemfile.lesli
 
-# Install Lesli core
-RUN bundle add lesli --skip-install
-
-# Install Lesli engines
-RUN bundle add lesli_admin --skip-install
-RUN bundle add lesli_audit --skip-install
-RUN bundle add lesli_shield --skip-install
-RUN bundle add lesli_dashboard --skip-install
+COPY rails/Gemfile.autoload Gemfile.lesli
 
 # Install the gems specified in the Gemfile
 RUN bundle install --without development test
