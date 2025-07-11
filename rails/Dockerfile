@@ -72,6 +72,7 @@ RUN bundle exec rake assets:precompile
 
 # Build the database for depoyment
 RUN rake lesli:db:reset
+RUN rake lesli:db:setup
 
 # Expose port 3000 to the Docker host
 EXPOSE 3000
