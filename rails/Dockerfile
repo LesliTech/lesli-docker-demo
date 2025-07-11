@@ -52,21 +52,17 @@ WORKDIR /app/LesliBuilder
 RUN rm -f Gemfile.lock
 RUN rm -f Gemfile.lesli
 
+# Install Lesli core
+RUN bundle add lesli --skip-install
+
+# Install Lesli engines
+RUN bundle add lesli_admin --skip-install
+RUN bundle add lesli_audit --skip-install
+RUN bundle add lesli_shield --skip-install
+RUN bundle add lesli_dashboard --skip-install
+
 # Install the gems specified in the Gemfile
-RUN bundle install
-
-# Copy the rest of the app (not sure if needed)
-#COPY . .
-
-RUN bundle add lesli  --version '>=5.0.16'
-
-RUN bundle add lesli_shield
-
-RUN bundle add lesli_admin
-
-RUN bundle add lesli_audit
-
-RUN bundle add lesli_dashboard
+RUN bundle install --without development test
 
 # update the gems to always use the latest version of Lesli
 RUN bundle update
@@ -76,12 +72,6 @@ RUN bundle exec rake assets:precompile
 
 # Build the database for depoyment
 RUN rake lesli:db:reset
-
-# Load translations
-#RUN rake lesli:babel:load
-
-# Print a nice welcome message :)
-RUN rake lesli:status
 
 # Expose port 3000 to the Docker host
 EXPOSE 3000
