@@ -44,9 +44,12 @@ WORKDIR /app
 
 # Clone the Lesli Builder app repository
 RUN git clone https://github.com/LesliTech/LesliBuilder.git ./LesliBuilder
-RUN git clone https://github.com/LesliTech/Lesli.git ./LesliBuilder/engines
 
 # Change to the cloned directory
+WORKDIR /app/LesliBuilder/engines
+
+RUN git clone https://github.com/LesliTech/Lesli.git ./LesliBuilder/engines/
+
 WORKDIR /app/LesliBuilder
 
 # Delete the Gemfile.lock file 
