@@ -84,11 +84,19 @@ RUN bundle install --without development test
 # update the gems to always use the latest version of Lesli
 RUN bundle update
 
-# set up env
+
+# Set build-time environment variables
 ENV RAILS_ENV=production
 ENV RAILS_LOG_TO_STDOUT=true
 ENV RAILS_SERVE_STATIC_FILES=true
-ENV RAILS_ALLOWED_HOSTS="demo.lesli.dev,www.demo.lesli.dev"
+
+# Use ARG to accept a build-time argument
+ARG RAILS_MASTER_KEY_ARG=secret_key_base_for_build_only
+
+# Set a placeholder secret key base for the build stage.
+# It's important to set this after the ENV declarations.
+ENV SECRET_KEY_BASE=$RAILS_MASTER_KEY_ARG
+
 
 # Precompile assets 
 RUN bundle exec rake assets:precompile
