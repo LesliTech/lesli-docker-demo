@@ -42,10 +42,10 @@ services:
     ports:
       - "3000:3000"
 
-  nginx:
-    build:
-      context: ./nginx
-    ports:
-      - "80:80"
-    depends_on:
-      - rails
+  # nginx:
+  #   build:
+  #     context: ./nginx
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - rails
