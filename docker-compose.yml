@@ -34,6 +34,11 @@ services:
   rails:
     build: 
       context: ./rails
+      args:
+        ARG_SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+        ARG_RAILS_ENV: ${RAILS_ENV}
+    env_file:
+      - .env
     ports:
       - "3000:3000"
 

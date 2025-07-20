@@ -39,27 +39,34 @@ RUN apt-get update -qq && apt-get install -y git sqlite3
 ENV BUNDLER_VERSION=2.3.7
 RUN gem install bundler -v "$BUNDLER_VERSION"
 
+RUN bundle config set --local without test development
+
 # Create and set the app directory
 WORKDIR /app
 
 # Clone the Lesli Builder app repository
 RUN git clone https://github.com/LesliTech/LesliBuilder.git ./LesliBuilder
 
-# Change to the cloned directory
-WORKDIR /app/LesliBuilder
-
 # Delete the Gemfile.lock file 
-RUN rm -f Gemfile.lock
-RUN rm -f Gemfile.lesli
+RUN rm -f ./LesliBuilder/Gemfile.lock
 
-# Install Lesli core
-RUN bundle add lesli --skip-install
+WORKDIR /app/LesliBuilder/engines 
+RUN git clone https://github.com/LesliTech/Lesli.git 
+RUN git clone https://github.com/LesliTech/LesliBell.git 
+RUN git clone https://github.com/LesliTech/LesliAdmin.git 
+RUN git clone https://github.com/LesliTech/LesliBabel.git 
+RUN git clone https://github.com/LesliTech/LesliAudit.git 
+RUN git clone https://github.com/LesliTech/LesliShield.git 
+RUN git clone https://github.com/LesliTech/LesliSupport.git 
+RUN git clone https://github.com/LesliTech/LesliCalendar.git 
+RUN git clone https://github.com/LesliTech/LesliDashboard.git 
+WORKDIR /app/LesliBuilder/gems 
+RUN git clone https://github.com/LesliTech/LesliView.git 
+RUN git clone https://github.com/LesliTech/LesliDate.git 
+RUN git clone https://github.com/LesliTech/LesliSystem.git 
+RUN git clone https://github.com/LesliTech/LesliAssets.git 
 
-# Install Lesli engines
-RUN bundle add lesli_admin --skip-install
-RUN bundle add lesli_audit --skip-install
-RUN bundle add lesli_shield --skip-install
-RUN bundle add lesli_dashboard --skip-install
+WORKDIR /app/LesliBuilder
 
 # Install the gems specified in the Gemfile
 RUN bundle install --without development test
@@ -67,12 +74,24 @@ RUN bundle install --without development test
 # update the gems to always use the latest version of Lesli
 RUN bundle update
 
+
+# Set build-time environment variables
+
+# Set arguments to customize the image 
+ARG ARG_RAILS_ENV=development
+ARG ARG_SECRET_KEY_BASE=secret_key_base_for_build_only
+
+ENV RAILS_ENV=${ARG_RAILS_ENV}
+ENV SECRET_KEY_BASE=${ARG_SECRET_KEY_BASE}
+ENV RAILS_LOG_TO_STDOUT=true
+ENV RAILS_SERVE_STATIC_FILES=true
+
+
 # Precompile assets 
 RUN bundle exec rake assets:precompile
 
 # Build the database for depoyment
 RUN rake lesli:db:reset
-RUN rake lesli:db:setup
 
 # Expose port 3000 to the Docker host
 EXPOSE 3000
