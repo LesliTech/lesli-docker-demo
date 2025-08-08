@@ -28,12 +28,11 @@
 # // · 
 
 # docker-compose.yml
-version: '3.8'
-
 services:
   rails:
     build: 
       context: ./rails
+      dockerfile: Dockerfile
       args:
         ARG_SECRET_KEY_BASE: ${SECRET_KEY_BASE}
         ARG_RAILS_ENV: ${RAILS_ENV}

@@ -36,7 +36,7 @@ FROM ruby:3.2.5
 RUN apt-get update -qq && apt-get install -y git sqlite3
 
 # Set an environment variable to ensure that the Gemfile and Gemfile.lock are copied
-ENV BUNDLER_VERSION=2.3.7
+ENV BUNDLER_VERSION=2.4.9
 RUN gem install bundler -v "$BUNDLER_VERSION"
 
 RUN bundle config set --local without test development
@@ -68,8 +68,10 @@ RUN git clone https://github.com/LesliTech/LesliAssets.git
 
 WORKDIR /app/LesliBuilder
 
+RUN bundle add debug --skip-install
+
 # Install the gems specified in the Gemfile
-RUN bundle install --without development test
+RUN bundle install 
 
 # update the gems to always use the latest version of Lesli
 RUN bundle update
@@ -92,6 +94,8 @@ RUN bundle exec rake assets:precompile
 
 # Build the database for depoyment
 RUN rake lesli:db:reset
+
+RUN rake lesli:status
 
 # Expose port 3000 to the Docker host
 EXPOSE 3000
