@@ -24,42 +24,15 @@
 # @website  https://www.lesli.tech
 # @license  GPLv3 http://www.gnu.org/licenses/gpl-3.0.en.html
 # 
-# // · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
-# // · 
-
-# docker-compose.yml
-version: "3.9"
-
-services:
-  rails-stable:
-    profiles: ["stable"]
-    build:
-      context: ./rails
-      dockerfile: Dockerfile.stable
-      args:
-        ARG_SECRET_KEY_BASE: ${SECRET_KEY_BASE}
-        ARG_RAILS_ENV: ${RAILS_ENV}
-    env_file: .env
-    ports:
-      - "3000:3000"
-
-  rails-builder:
-    profiles: ["builder"]
-    build:
-      context: ./rails
-      dockerfile: Dockerfile.builder
-      args:
-        ARG_SECRET_KEY_BASE: ${SECRET_KEY_BASE}
-        ARG_RAILS_ENV: ${RAILS_ENV}
-    env_file: .env
-    ports:
-      - "3001:3000"
+# · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
+# · 
 
 
-  # nginx:
-  #   build:
-  #     context: ./nginx
-  #   ports:
-  #     - "80:80"
-  #   depends_on:
-  #     - rails
+.PHONY: lesli.stable lesli.builder
+
+lesli.stable:
+	docker compose --profile stable up --build
+
+lesli.builder:
+	docker compose --profile builder up --build
+

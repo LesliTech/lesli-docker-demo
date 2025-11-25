@@ -50,6 +50,7 @@ RUN git clone https://github.com/LesliTech/LesliBuilder.git ./LesliBuilder
 # Delete the Gemfile.lock file 
 RUN rm -f ./LesliBuilder/Gemfile.lock
 
+# Clone engines
 WORKDIR /app/LesliBuilder/engines 
 RUN git clone https://github.com/LesliTech/Lesli.git 
 RUN git clone https://github.com/LesliTech/LesliBell.git 
@@ -60,6 +61,8 @@ RUN git clone https://github.com/LesliTech/LesliShield.git
 RUN git clone https://github.com/LesliTech/LesliSupport.git 
 RUN git clone https://github.com/LesliTech/LesliCalendar.git 
 RUN git clone https://github.com/LesliTech/LesliDashboard.git 
+
+# Clone gems
 WORKDIR /app/LesliBuilder/gems 
 RUN git clone https://github.com/LesliTech/LesliView.git 
 RUN git clone https://github.com/LesliTech/LesliDate.git 
@@ -67,8 +70,6 @@ RUN git clone https://github.com/LesliTech/LesliSystem.git
 RUN git clone https://github.com/LesliTech/LesliAssets.git 
 
 WORKDIR /app/LesliBuilder
-
-RUN bundle add debug --skip-install
 
 # Install the gems specified in the Gemfile
 RUN bundle install 
@@ -91,6 +92,7 @@ ENV RAILS_SERVE_STATIC_FILES=true
 
 # Precompile assets 
 RUN bundle exec rake assets:precompile
+
 
 # Build the database for depoyment
 RUN rake lesli:db:reset
