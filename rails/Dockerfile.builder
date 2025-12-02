@@ -71,6 +71,9 @@ RUN git clone https://github.com/LesliTech/LesliAssets.git
 
 WORKDIR /app/LesliBuilder
 
+# required to load rails for development
+RUN bundle add debug --skip-install
+
 # Install the gems specified in the Gemfile
 RUN bundle install 
 

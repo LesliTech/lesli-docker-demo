@@ -53,8 +53,7 @@ services:
         ARG_RAILS_ENV: ${RAILS_ENV}
     env_file: .env
     ports:
-      - "3001:3000"
-
+      - "3000:3000"
 
   # nginx:
   #   build:

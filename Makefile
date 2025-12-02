@@ -25,7 +25,7 @@
 # @license  GPLv3 http://www.gnu.org/licenses/gpl-3.0.en.html
 # 
 # · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
-# · 
+# · docker compose --profile builder up --build -d
 
 
 .PHONY: lesli.stable lesli.builder
@@ -35,4 +35,3 @@ lesli.stable:
 
 lesli.builder:
 	docker compose --profile builder up --build
-
