@@ -20,7 +20,15 @@ git clone git@github.com:LesliTech/lesli-docker-demo.git
 ```shell
 # Start the demo image
 docker compose up --build
+
+# Run on background
+docker compose --profile builder up --build -d
+
+# Stop background app
+docker compose --profile builder down
 ```
+
+
 
 ### Documentation
 * [website](https://www.lesli.dev/)
